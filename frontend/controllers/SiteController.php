@@ -62,6 +62,11 @@ class SiteController extends Controller
                 'class' => 'yii\captcha\CaptchaAction',
                 'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
             ],
+            'test' => [
+                'class'=>'frontend\libs\TestAction',
+                'param1'=>'参数1',
+                'param2'=>'参数2'
+            ],
         ];
     }
 

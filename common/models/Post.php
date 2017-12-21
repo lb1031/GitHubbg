@@ -35,11 +35,12 @@ class Post extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id'], 'required'],
+            [['title','content'], 'required','on'=>'create'],
+            [['title'], 'required','on'=>'update'],
             [['id', 'author', 'tag', 'post_status'], 'integer'],
             [['title', 'content'], 'string'],
             [['create_time', 'update_time'], 'safe'],
-            [['post_status'], 'exist', 'skipOnError' => true, 'targetClass' => Status::className(), 'targetAttribute' => ['post_status' => 'id']],
+            [['post_status'], 'exist', 'skipOnError' => true, 'targetClass' => Poststatus::className(), 'targetAttribute' => ['post_status' => 'id']],
             [['tag'], 'exist', 'skipOnError' => true, 'targetClass' => Tag::className(), 'targetAttribute' => ['tag' => 'id']],
         ];
     }
@@ -59,6 +60,16 @@ class Post extends \yii\db\ActiveRecord
             'create_time' => 'Create Time',
             'update_time' => 'Update Time',
         ];
+    }
+
+    public function scenarios()
+    {
+        $arr = parent::scenarios();
+        $arr1 =  [
+            'create'=>['title','content'],
+            'update'=>['title','content']
+        ];
+        return (array_merge($arr,$arr1));
     }
 
     /**
