@@ -50,14 +50,14 @@ class User extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'username' => 'Username',
-            'auth_key' => 'Auth Key',
-            'password_hash' => 'Password Hash',
-            'password_reset_token' => 'Password Reset Token',
-            'email' => 'Email',
-            'status' => 'Status',
-            'created_at' => 'Created At',
-            'updated_at' => 'Updated At',
+            'username' => '用户名',
+            'auth_key' => '秘钥',
+            'password_hash' => '密码',
+            'password_reset_token' => '密码秘钥',
+            'email' => '邮箱',
+            'status' => '状态',
+            'created_at' => '创建',
+            'updated_at' => '修改',
         ];
     }
 }
