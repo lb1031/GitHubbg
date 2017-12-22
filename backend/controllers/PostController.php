@@ -35,6 +35,7 @@ class PostController extends Controller
      */
     public function actionIndex()
     {
+        echo 'asdsdf';
         $searchModel = new PostSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
