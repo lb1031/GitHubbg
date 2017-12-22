@@ -29,7 +29,7 @@ class Comment extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id', 'post_id'], 'required'],
+            [['post_id'], 'required'],
             [['id', 'post_id', 'user_id'], 'integer'],
             [['content'], 'string'],
             [['create_time'], 'safe'],
@@ -42,11 +42,11 @@ class Comment extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
-            'content' => 'Content',
-            'post_id' => 'Post ID',
-            'create_time' => 'Create Time',
-            'user_id' => 'User ID',
+//            'id' => 'ID',
+            'content' => '内容',
+            'post_id' => '文章',
+            'create_time' => '创建时间',
+            'user_id' => '会员',
         ];
     }
 }

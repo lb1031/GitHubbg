@@ -4,7 +4,7 @@ namespace backend\controllers;
 
 use Yii;
 use common\models\Post;
-use app\models\PostSearch;
+use common\models\PostSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;

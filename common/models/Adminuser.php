@@ -43,13 +43,13 @@ class Adminuser extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
-            'name' => 'Name',
-            'age' => 'Age',
-            'edu' => 'Edu',
-            'pwd' => 'Pwd',
-            'creat_time' => 'Creat Time',
-            'update_time' => 'Update Time',
+//            'id' => 'ID',
+            'name' => '姓名',
+            'age' => '年龄',
+            'edu' => '学历',
+            'pwd' => '密码',
+            'creat_time' => '新增时间',
+            'update_time' => '修改时间',
         ];
     }
 }
