@@ -35,7 +35,6 @@ class PostController extends Controller
      */
     public function actionIndex()
     {
-        echo 'asdsdf';
         $searchModel = new PostSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -53,6 +52,8 @@ class PostController extends Controller
      */
     public function actionView($id)
     {
+
+        echo 'test commit';
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
