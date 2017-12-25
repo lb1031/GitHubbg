@@ -19,11 +19,19 @@ use \common\models\Poststatus;
 
     <?= $form->field($model, 'content')->textarea(['rows' => 6]) ?>
 
-    <?= $form->field($model, 'author')->textInput() ?>
+    <?= $form->field($model, 'author')
+        ->dropDownList(Adminuser::find()
+        ->select(['name'])
+        ->indexBy('id')
+        ->column(),['prompt'=>'请选择作者']) ?>
 
     <?= $form->field($model, 'tag')->textInput() ?>
 
-    <?= $form->field($model, 'post_status')->textInput() ?>
+    <?= $form->field($model, 'post_status')
+        ->dropDownList(Poststatus::find()
+            ->select('name')
+            ->indexBy('id')
+            ->column(),['prompt'=>'请选择状态']) ?>
 
     <?= $form->field($model, 'create_time')->textInput() ?>
 
