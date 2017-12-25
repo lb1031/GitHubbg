@@ -29,7 +29,7 @@ use \common\models\Poststatus;
 
     <?= $form->field($model, 'post_status')
         ->dropDownList(Poststatus::find()
-            ->select('name')
+            ->select(['name','id'])
             ->indexBy('id')
             ->column(),['prompt'=>'请选择状态']) ?>
 

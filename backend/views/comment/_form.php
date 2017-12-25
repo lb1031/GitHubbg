@@ -2,6 +2,8 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use common\models\Post;
+use common\models\User;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Comment */
@@ -16,14 +18,21 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'content')->textarea(['rows' => 6]) ?>
 
-    <?= $form->field($model, 'post_id')->textInput() ?>
+    <?= $form->field($model, 'post_id')
+        ->dropDownList(Post::find()
+        ->select(['title','id'])
+        ->indexBy('id')
+        ->column(),['prompt','请选择文章'])?>
 
     <?= $form->field($model, 'create_time')->textInput() ?>
 
-    <?= $form->field($model, 'user_id')->textInput() ?>
+    <?= $form->field($model, 'user_id')
+        ->dropDownList(User::find()
+        ->select(['username','id'])
+        ->column(),['prompt'=>'评论者']) ?>
 
     <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?= Html::submitButton($model->isNewRecord ? '新建' : '修改', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>
