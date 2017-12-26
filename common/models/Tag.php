@@ -76,7 +76,6 @@ class Tag extends \yii\db\ActiveRecord
                 $aTa->name = $tag;
                 $aTa->num = 1;
                 $aTa->save();
-                echo '1';
             }else{
                 $tagModel->num +=1;
                 $tagModel->save();
