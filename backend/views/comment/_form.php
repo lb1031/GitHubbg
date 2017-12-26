@@ -29,6 +29,7 @@ use common\models\User;
     <?= $form->field($model, 'user_id')
         ->dropDownList(User::find()
         ->select(['username','id'])
+        ->indexBy('id')
         ->column(),['prompt'=>'评论者']) ?>
 
     <div class="form-group">
