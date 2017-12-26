@@ -3,6 +3,7 @@
 namespace common\models;
 
 use Yii;
+use common\models\Tag;
 
 /**
  * This is the model class for table "post".
@@ -24,6 +25,7 @@ class Post extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
+    private $_oldTags;
     public static function tableName()
     {
         return 'post';
@@ -35,13 +37,13 @@ class Post extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['title'], 'required','on'=>'create'],
-            [['content'], 'required','on'=>'update'],
-            [['id', 'author', 'tag', 'post_status'], 'integer'],
-            [['title', 'content'], 'string'],
+            [['title','content'], 'required'],
+            [['id', 'author','post_status'], 'integer'],
+            [['title', 'content','tag'], 'string'],
             [['create_time', 'update_time'], 'safe'],
             [['post_status'], 'exist', 'skipOnError' => true, 'targetClass' => Poststatus::className(), 'targetAttribute' => ['post_status' => 'id']],
-            [['tag'], 'exist', 'skipOnError' => true, 'targetClass' => Tag::className(), 'targetAttribute' => ['tag' => 'id']],
+            //此处设置 关联关系,即post表中tag中的数据必须来源于tag中的
+            //[['tag'], 'exist', 'skipOnError' => true, 'targetClass' => Tag::className(), 'targetAttribute' => ['tag' => 'id']],
         ];
     }
 
@@ -63,21 +65,21 @@ class Post extends \yii\db\ActiveRecord
     }
 
     //只用此中定义好的数据才会在对应场景被保存下来,且此中定义的数据可以不同于rules()中定义的数据
-    public function scenarios()
-    {
-//        $arr = parent::scenarios();
-//        $arr1 =  [
+//    public function scenarios()
+//    {
+////        $arr = parent::scenarios();
+////        $arr1 =  [
+////            'create'=>['title'],
+////            'update'=>['content','author']
+////        ];
+////        return (array_merge($arr,$arr1));
+//        return [
+//
 //            'create'=>['title'],
-//            'update'=>['content','author']
+//            'update'=>['content','author','tag','post_status']
+//
 //        ];
-//        return (array_merge($arr,$arr1));
-        return [
-
-            'create'=>['title'],
-            'update'=>['content','author','tag','post_status']
-
-        ];
-    }
+//    }
 
     /**
      * @return \yii\db\ActiveQuery
@@ -90,14 +92,36 @@ class Post extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getTag0()
-    {
-        return $this->hasOne(Tag::className(), ['id' => 'tag']);
-    }
+    //这里应该是填写的,所以不需要关联
+//    public function getTag0()
+//    {
+//        return $this->hasOne(Tag::className(), ['id' => 'tag']);
+//    }
 
 //    public function beforeSave($insert)
 //    {
 //         parent::beforeSave($insert);
 //        var_dump($this,$_POST);die;
 //    }
+
+        public function afterFind()
+        {
+            parent::afterFind();
+            $this->_oldTags = $this->tag;
+//            var_dump($this->_oldTags);die;
+        }
+
+        public function afterSave($insert, $changedAttributes)
+        {
+            parent::afterSave($insert, $changedAttributes);
+
+            Tag::updateCount($this->_oldTags,$this->tag);
+        }
+
+        public function afterDelete()
+        {
+            parent::afterDelete();
+            Tag::updateCount($this->tag,'');
+        }
+
 }

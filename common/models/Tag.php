@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use Symfony\Component\Console\EventListener\ErrorListener;
 use Yii;
 
 /**
@@ -9,7 +10,7 @@ use Yii;
  *
  * @property integer $id
  * @property string $name
- * @property integer $count
+ * @property integer $num
  *
  * @property Post[] $posts
  */
@@ -29,8 +30,8 @@ class Tag extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id', 'name'], 'required'],
-            [['id', 'count'], 'integer'],
+            [['name'], 'required'],
+            [['id', 'num'], 'integer'],
             [['name'], 'string', 'max' => 255],
         ];
     }
@@ -43,7 +44,7 @@ class Tag extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'name' => 'Name',
-            'count' => 'Count',
+            'num' => 'num',
         ];
     }
 
@@ -54,4 +55,71 @@ class Tag extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Post::className(), ['tag' => 'id']);
     }
+    public static function string2array($tags){
+        return explode(',',$tags);
+    }
+
+    public static function array2string($tags){
+        return implode(',',$tags);
+    }
+
+
+    public static function addTag($tags){
+//        var_dump($tags);die;
+        if(empty($tags)) return;
+        foreach ($tags as $tag) {
+            $tagModel = Tag::find()->where(['name'=>$tag])->one();
+            $tagCount = Tag::find()->where(['name'=>$tag])->count();
+//            var_dump($tagModel,$tagCount);die;
+            if($tagCount == 0){
+                $aTa = new Tag();
+                $aTa->name = $tag;
+                $aTa->num = 1;
+                $aTa->save();
+                echo '1';
+            }else{
+                $tagModel->num +=1;
+                $tagModel->save();
+
+            }
+
+        }
+
+    }
+
+
+    public static function removeTag($tags){
+        if(empty($tags)) return;
+
+        foreach ($tags as $tag) {
+            $tagModel = Tag::find()->where(['name'=>$tag])->one();
+            $tagCount = Tag::find()->where(['name'=>$tag])->count();
+           if($tagCount){
+               if($tagCount == 1){
+                    $tagModel->delete();
+               }else{
+                   $tagModel->num -=1;
+               }
+           }
+        }
+    }
+
+
+    public static function updateCount($oldTag,$newTag){
+//        var_dump($oldTag,$newTag);die;
+        if(!empty($oldTag) || !empty($newTag)){
+            $newTagArray = self::string2array($newTag);
+            $oldTagArray = self::string2array($oldTag);
+//            var_dump($newTagArray,$oldTagArray);
+//            var_dump(array_diff($newTagArray,$oldTagArray));
+//            var_dump(array_values(array_diff($newTagArray,$oldTagArray)));
+
+//            die;
+            self::addTag(array_values(array_diff($newTagArray,$oldTagArray)));
+            self::removeTag(array_values(array_diff($oldTagArray,$newTagArray)));
+        }
+    }
+
+
+
 }

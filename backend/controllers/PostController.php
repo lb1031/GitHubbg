@@ -68,7 +68,7 @@ class PostController extends Controller
     {
         echo 'asdf';
         $model = new Post();
-        $model->setScenario('create');
+//        $model->setScenario('create');
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
@@ -87,7 +87,7 @@ class PostController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        $model->setScenario('update');
+//        $model->setScenario('update');
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
