@@ -66,9 +66,6 @@ class PostController extends Controller
      */
     public function actionCreate()
     {
-        echo 'sadfasdfsadf';
-
-
         $model = new Post();
 //        $model->setScenario('create');
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
