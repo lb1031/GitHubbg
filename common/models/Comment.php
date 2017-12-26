@@ -29,10 +29,11 @@ class Comment extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['post_id'], 'required'],
+//            [['post_id'], 'required'],
             [['id', 'post_id', 'user_id'], 'integer'],
             [['content'], 'string'],
             [['create_time'], 'safe'],
+            [['post_id'], 'exist', 'skipOnError' => true, 'targetClass' => Post::className(), 'targetAttribute' => ['post_id' => 'id']],
         ];
     }
 
@@ -48,5 +49,12 @@ class Comment extends \yii\db\ActiveRecord
             'create_time' => '创建时间',
             'user_id' => '会员',
         ];
+    }
+
+    public function getPostName(){
+        return Comment::hasOne(Post::className(),['id'=>'post_id']);
+    }
+    public function getGetName(){
+        return Comment::hasOne(User::className(),['id'=>'user_id']);
     }
 }

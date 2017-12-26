@@ -26,7 +26,11 @@ $this->params['breadcrumbs'][] = $this->title;
             //生成序号
             //['class' => 'yii\grid\SerialColumn'],
 
-            'id',
+//            'id',
+            [
+                'attribute'=>'id',
+                'contentOptions'=>['width'=>'30px']
+            ],
             'title:ntext',
 //            'content:ntext',
 //            'author',
