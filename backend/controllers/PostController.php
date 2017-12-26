@@ -66,7 +66,9 @@ class PostController extends Controller
      */
     public function actionCreate()
     {
-        echo 'asdf';
+        echo 'sadfasdfsadf';
+
+
         $model = new Post();
 //        $model->setScenario('create');
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -86,6 +88,7 @@ class PostController extends Controller
      */
     public function actionUpdate($id)
     {
+        echo 'adsfdf';
         $model = $this->findModel($id);
 //        $model->setScenario('update');
 
