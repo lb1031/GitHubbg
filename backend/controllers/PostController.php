@@ -94,7 +94,7 @@ class PostController extends Controller
         echo 'adfasdf';
 
 
-
+        echo 'update';
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
