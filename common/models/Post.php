@@ -3,7 +3,7 @@
 namespace common\models;
 
 use Yii;
-use common\models\Tag;
+use common\models\user;
 
 /**
  * This is the model class for table "post".
@@ -43,7 +43,8 @@ class Post extends \yii\db\ActiveRecord
             [['create_time', 'update_time'], 'safe'],
             [['post_status'], 'exist', 'skipOnError' => true, 'targetClass' => Poststatus::className(), 'targetAttribute' => ['post_status' => 'id']],
             //此处设置 关联关系,即post表中tag中的数据必须来源于tag中的
-            //[['tag'], 'exist', 'skipOnError' => true, 'targetClass' => Tag::className(), 'targetAttribute' => ['tag' => 'id']],
+//            [['tag'], 'exist', 'skipOnError' => true, 'targetClass' => Tag::className(), 'targetAttribute' => ['tag' => 'id']],
+            [['author'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['author' => 'id']],
         ];
     }
 
@@ -86,7 +87,12 @@ class Post extends \yii\db\ActiveRecord
      */
     public function getPostStatus()
     {
-        return $this->hasOne(Status::className(), ['id' => 'post_status']);
+        return $this->hasOne(Poststatus::className(), ['id' => 'post_status']);
+    }
+
+    public function getPostAuthor()
+    {
+        return $this->hasOne(User::className(), ['id' => 'author']);
     }
 
     /**
