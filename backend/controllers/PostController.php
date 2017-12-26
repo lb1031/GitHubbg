@@ -53,7 +53,6 @@ class PostController extends Controller
     public function actionView($id)
     {
 
-        echo 'test commit';
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
