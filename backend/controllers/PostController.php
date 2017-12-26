@@ -124,7 +124,13 @@ class PostController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
-    public function test2(){
+
+    public function test2()
+    {
         return false;
+    }
+
+    public function test(){
+        return true;
     }
 }
