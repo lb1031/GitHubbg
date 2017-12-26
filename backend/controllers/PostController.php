@@ -88,7 +88,7 @@ class PostController extends Controller
      */
     public function actionUpdate($id)
     {
-       
+
         $model = $this->findModel($id);
 //        $model->setScenario('update');
         echo 'adfasdf';
