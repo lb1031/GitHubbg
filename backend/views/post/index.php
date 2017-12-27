@@ -37,7 +37,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute'=>'authorName',
                 'label'=>'作者',
-                'value'=>'postAuthor.username'
+                'value'=>'postAuthor.name'
             ],
 
             'tag',
