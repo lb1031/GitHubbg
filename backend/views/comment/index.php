@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use common\models\Post;
 
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\CommentSearch */
@@ -29,7 +30,23 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute'=>'id',
                 'contentOptions'=>['width'=>'30px'],
             ],
-            'content:ntext',
+//            'content:ntext',
+//            [
+//                'attribute'=>'content',
+//                'value'=>'beginning'
+//            ],
+            [
+                'attribute'=>'content',
+                'value'=>'beginning',
+//             'value'=>function($model)
+//             		{
+//             			$tmpStr=strip_tags($model->content);
+//             			$tmpLen=mb_strlen($tmpStr);
+
+//             			return mb_substr($tmpStr,0,20,'utf-8').(($tmpLen>20)?'...':'');
+//             		}
+            ],
+
 //            'post_id',
             [
                 'attribute'=>'post_id',

@@ -12,14 +12,18 @@ use common\models\Post;
  */
 class PostSearch extends Post
 {
+    public function attributes()
+    {
+        return array_merge(parent::attributes(),['authorName']);
+    }
     /**
      * @inheritdoc
      */
     public function rules()
     {
         return [
-            [['id', 'author', 'tag', 'post_status'], 'integer'],
-            [['title', 'content', 'create_time', 'update_time'], 'safe'],
+            [['id', 'post_status'], 'integer'],
+            [['title', 'content', 'create_time', 'tag','update_time','authorName'], 'safe'],
         ];
     }
 
@@ -68,7 +72,11 @@ class PostSearch extends Post
         ]);
 
         $query->andFilterWhere(['like', 'title', $this->title])
-            ->andFilterWhere(['like', 'content', $this->content]);
+            ->andFilterWhere(['like', 'content', $this->content])
+            ->andFilterWhere(['like', 'tag', $this->tag]);
+
+        $query->join('INNER JOIN','User','Post.author = User.id');
+        $query->andFilterWhere(['like','User.username',$this->authorName]);
 
         return $dataProvider;
     }

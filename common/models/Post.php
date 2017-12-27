@@ -130,4 +130,12 @@ class Post extends \yii\db\ActiveRecord
             Tag::updateCount($this->tag,'');
         }
 
+        public function getBeginning($length=288){
+
+            $tmpStr = strip_tags($this->content);
+            $tmpLen = mb_strlen($tmpStr);
+
+            $tmpStr = mb_substr($tmpStr,0,$length,'utf-8');
+            return $tmpStr.($tmpLen>$length?'.....':'');
+        }
 }

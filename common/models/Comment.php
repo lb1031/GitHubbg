@@ -57,4 +57,21 @@ class Comment extends \yii\db\ActiveRecord
     public function getGetName(){
         return Comment::hasOne(User::className(),['id'=>'user_id']);
     }
+
+//    public function getBeginning($length=288)
+//    {
+//        $tmpStr = strip_tags($this->content);
+//        $tmpLen = mb_strlen($tmpStr);
+//
+//        $tmpStr = mb_substr($tmpStr,0,$length,'utf-8');
+//        return $tmpStr.($tmpLen>$length?'...':'');
+//    }
+
+    public function getBeginning($length=10)
+    {
+        $tmpStr = strip_tags($this->content);
+        $tmpLen = mb_strlen($tmpStr);
+
+        return mb_substr($tmpStr,0,$length,'utf-8').(($tmpLen>$length)?'...':'');
+    }
 }
