@@ -31,7 +31,11 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute'=>'id',
                 'contentOptions'=>['width'=>'30px']
             ],
-            'title:ntext',
+//            'title:ntext',
+            [
+                'attribute'=>'title',
+                'value'=>'beginning'
+            ],
 //            'content:ntext',
 //            'author',
             [

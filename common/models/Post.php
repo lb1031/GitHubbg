@@ -127,15 +127,30 @@ class Post extends \yii\db\ActiveRecord
         public function afterDelete()
         {
             parent::afterDelete();
+            
             Tag::updateCount($this->tag,'');
         }
 
-        public function getBeginning($length=288){
+        public function getBeginning($length=10){
 
-            $tmpStr = strip_tags($this->content);
+            $tmpStr = strip_tags($this->title);
             $tmpLen = mb_strlen($tmpStr);
 
             $tmpStr = mb_substr($tmpStr,0,$length,'utf-8');
             return $tmpStr.($tmpLen>$length?'.....':'');
+        }
+
+        public function beforeSave($insert)
+        {
+           if(parent::beforeSave($insert)){
+                if($insert){
+                    $this->update_time = date('Y-m-d H:i:s',time());
+                    $this->create_time = date('Y-m-d H:i:s',time());
+                }else{
+                    $this->update_time = date('Y-m-d H:i:s',time());
+                }
+                return true;
+           }
+           return false;
         }
 }
