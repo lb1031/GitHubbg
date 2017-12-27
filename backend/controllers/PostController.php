@@ -132,6 +132,7 @@ class PostController extends Controller
     }
 
     public function test(){
+        echo 'this is blog1';
         return true;
     }
 }
