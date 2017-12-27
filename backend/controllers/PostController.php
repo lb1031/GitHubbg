@@ -128,10 +128,12 @@ class PostController extends Controller
 
     public function test2()
     {
+        echo 'this is blog2';
         return true;
     }
 
     public function test(){
+        echo 'this is blog2 2';
         return true;
     }
 }
