@@ -41,8 +41,12 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value'=>'postName.title'
             ],
             'create_time',
-//            'user_id',
+//            'status',
             [
+                'attribute'=>'status',
+                'value'=>'postStatus.name'],
+    //            'user_id',
+                [
                 'attribute'=>'userName',
                 'label'=>'会员',
                 'value'=>'getName.username'

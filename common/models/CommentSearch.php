@@ -24,7 +24,7 @@ class CommentSearch extends Comment
     {
         return [
             [['id', 'post_id'], 'integer'],
-            [['content', 'create_time','userName'], 'safe'],
+            [['content', 'create_time','userName','status'], 'safe'],
         ];
     }
 
@@ -73,6 +73,9 @@ class CommentSearch extends Comment
         $query->andFilterWhere(['like', 'content', $this->content]);
 
         $query->join('INNER JOIN','User','Comment.user_id = User.id');
+        $query->andFilterWhere(['like','User.username',$this->userName]);
+
+        $query->join('INNER JOIN','CommentStatus','Comment.user_id = User.id');
         $query->andFilterWhere(['like','User.username',$this->userName]);
 
         $dataProvider->sort->attributes['userName'] = [

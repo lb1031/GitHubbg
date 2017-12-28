@@ -26,11 +26,17 @@ class Comment extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
+
+    public function attributes()
+    {
+        return array_merge(parent::attributes(),['status','statusName']);
+    }
+
     public function rules()
     {
         return [
 //            [['post_id'], 'required'],
-            [['id', 'post_id', 'user_id'], 'integer'],
+            [['id', 'post_id', 'user_id','status'], 'integer'],
             [['content'], 'string'],
             [['create_time'], 'safe'],
             [['post_id'], 'exist', 'skipOnError' => true, 'targetClass' => Post::className(), 'targetAttribute' => ['post_id' => 'id']],
@@ -48,14 +54,19 @@ class Comment extends \yii\db\ActiveRecord
             'post_id' => '文章',
             'create_time' => '创建时间',
             'user_id' => '会员',
+            'status'=>'状态'
         ];
     }
 
     public function getPostName(){
         return Comment::hasOne(Post::className(),['id'=>'post_id']);
     }
+
     public function getGetName(){
         return Comment::hasOne(User::className(),['id'=>'user_id']);
+    }
+    public function getPostStatus(){
+        return Comment::hasOne(Commentstatus::className(),['id'=>'status']);
     }
 
 //    public function getBeginning($length=288)
