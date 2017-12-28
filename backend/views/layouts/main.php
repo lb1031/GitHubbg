@@ -39,6 +39,7 @@ AppAsset::register($this);
 //        ['label' => 'Home', 'url' => ['/site/index']],
         ['label' => '文章管理', 'url' => ['/post/index']],
         ['label' => '评论管理', 'url' => ['/comment/index']],
+//        '<li><span class="badge">'.Comment::getPengdingCommentCount().'</span></li>',
         ['label' => '管理员管理', 'url' => ['/adminuser/index']],
         ['label' => '会员管理', 'url' => ['/user/index']],
     ];

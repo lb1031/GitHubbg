@@ -85,4 +85,10 @@ class Comment extends \yii\db\ActiveRecord
 
         return mb_substr($tmpStr,0,$length,'utf-8').(($tmpLen>$length)?'...':'');
     }
+
+    public function approce(){
+        $this->status = 1;
+        return ($this->save()?true:false);
+    }
+
 }
